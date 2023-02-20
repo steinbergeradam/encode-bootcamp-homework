@@ -1,7 +1,17 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
 
-contract HelloWorld {
+interface IHelloWorld {
+
+    function helloWorld() external view returns(string memory);
+
+    function setText(string calldata newText) external;
+
+    function transferOwnership(address newOwner) external;
+
+}
+
+contract HelloWorld is IHelloWorld {
     string private text;
     address public owner;
 
