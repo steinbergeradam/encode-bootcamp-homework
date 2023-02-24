@@ -8,15 +8,15 @@ async function main() {
   console.log("Getting comand line args");
   const args = process.argv;
   const argOptions = args.splice(2);
-  if (argOptions.length < 2) throw new Error("Missing parameters: contract address, proposal number");
+  if (argOptions.length < 2) throw new Error("Missing parameters: contract address, receiving address");
   console.log(`Args: ${argOptions}`);
 
   // Get addresses
   console.log("Getting addresses");
   const contractAddress = argOptions[0];
-  const proposalNumber = argOptions[1];
+  const receivingAddress = argOptions[1];
   console.log(`Contract address: ${contractAddress}`);
-  console.log(`Proposal number: ${proposalNumber}`);
+  console.log(`Receiving address: ${receivingAddress}`);
   
   // Get provider
   console.log("Getting provider");
@@ -45,10 +45,10 @@ async function main() {
   const ballot = ballotFactory.attach(contractAddress);
   console.log("Contract built");
 
-  // Cast vote
-  console.log("Casting vote...");
-  await ballot.vote(proposalNumber);
-  console.log(`Voted on proposal ${proposalNumber}!`);
+  // Delegate vote
+  console.log("Delegating vote...");
+  await ballot.delegate(receivingAddress);
+  console.log(`Delegated vote to ${receivingAddress}`);
 }
 
 main().catch((error) => {
